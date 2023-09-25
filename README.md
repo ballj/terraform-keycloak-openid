@@ -51,6 +51,7 @@ module "openid" {
 | `backchannel_logout_revoke_offline_sessions` | No       | `false`      | revoke_offline_access included in the Logout Token  |
 | `client_role_protocol_mappers`               | No       | `[]`         | User client role protocol mappers                   |
 | `user_property_protocol_mappers`             | No       | `[]`         | User property protocol mappers                      |
+| `user_attribute_protocol_mappers`            | No       | `[]`         | User attribute protocol mappers                     |
 | `full_name_protocol_mapper`                  | No       | `[]`         | User full name protocol mapper                      |
 | `audience_protocol_mappers`                  | No       | `[]`         | Audience name protocol mappers                      |
 | `keys_filter_algorithm`                      | No       | `[]`         | Keys will be filtered by algorithm                  |
@@ -124,6 +125,24 @@ module "openid" {
   ]
 }
 ```
+### User attribute mapper
+
+User attribute mappers can be configured by passing a list to `user_attribute_protocol_mappers`.
+The variables can be found in the TF [openid_user_property_protocol_mapper](https://registry.terraform.io/providers/mrparkers/keycloak/latest/docs/resources/openid_user_property_protocol_mapper).
+
+```
+module "openid" {
+ user_property_protocol_mappers = [
+    {
+      name = "car"
+      user_property = "car"
+      claim_name = "car"
+      claim_value_type = "String"
+    }
+ ]
+}
+```
+
 ### Full name mapper
 
 Full Name mappers can be configured by passing a list to `full_name_protocol_mapper`.

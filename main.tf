@@ -113,6 +113,21 @@ resource "keycloak_openid_user_property_protocol_mapper" "main" {
   add_to_userinfo     = lookup(each.value, "add_to_userinfo", true)
 }
 
+resource "keycloak_openid_user_attribute_protocol_mapper" "main" {
+  for_each             = { for user_attribute in var.user_attribute_protocol_mappers : user_attribute.name => user_attribute }
+  realm_id             = data.keycloak_realm.main.id
+  client_id            = keycloak_openid_client.main.id
+  name                 = each.key
+  user_attribute       = each.value.user_attribute
+  claim_name           = each.value.claim_name
+  claim_value_type     = lookup(each.value, "claim_value_type", "String")
+  multivalued          = lookup(each.value, "multivalued", false)
+  add_to_id_token      = lookup(each.value, "add_to_id_token", true)
+  add_to_access_token  = lookup(each.value, "add_to_access_token", true)
+  add_to_userinfo      = lookup(each.value, "add_to_userinfo", true)
+  aggregate_attributes = lookup(each.value, "aggregate_attributes", false)
+}
+
 resource "keycloak_openid_full_name_protocol_mapper" "main" {
   count               = var.full_name_protocol_mapper != null ? 1 : 0
   realm_id            = data.keycloak_realm.main.id

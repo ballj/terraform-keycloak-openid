@@ -192,6 +192,12 @@ variable "user_property_protocol_mappers" {
   default     = []
 }
 
+variable "user_attribute_protocol_mappers" {
+  type        = list(any)
+  description = "User attribute protocol mappers"
+  default     = []
+}
+
 variable "full_name_protocol_mapper" {
   type        = map(any)
   description = "User full name protocol mappers"
