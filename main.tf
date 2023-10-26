@@ -83,6 +83,7 @@ resource "keycloak_group_roles" "main" {
   role_ids = [
     keycloak_role.main[each.key].id
   ]
+  exhaustive = false
 }
 
 resource "keycloak_openid_user_client_role_protocol_mapper" "roles" {
